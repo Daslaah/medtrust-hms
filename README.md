@@ -95,3 +95,46 @@ cd frontend
 npm install
 npm start
 ```
+
+## Deployment
+
+### Backend deployment (Railway)
+
+1. Sign in to Railway and create a new project.
+2. Connect your GitHub repository `Daslaah/medtrust-hms` or deploy from the local repository.
+3. In Railway, set the root directory to `backend`.
+4. Set the start command to:
+   ```bash
+   npm start
+   ```
+5. Add environment variables using values from `backend/.env.example`:
+   - `DB_HOST`
+   - `DB_USER`
+   - `DB_PASSWORD`
+   - `DB_NAME`
+   - `JWT_SECRET`
+   - `PORT` (Railway may set this automatically)
+6. Add a MySQL plugin or connect an external MySQL database.
+7. Deploy and verify the health endpoint at `/api/health`.
+
+### Frontend deployment (Vercel)
+
+1. Sign in to Vercel and connect your GitHub repository.
+2. Set the root directory to `frontend`.
+3. Set the build command to:
+   ```bash
+   npm run build
+   ```
+4. Set the publish directory to:
+   ```bash
+   build
+   ```
+5. Add environment variable:
+   - `REACT_APP_API_URL=https://<your-backend-domain>/api`
+6. Deploy and verify the frontend loads correctly.
+
+### Notes
+
+- Do not commit `.env` files; use `backend/.env.example` as the template.
+- For backend database seeding, run `npm run seed` locally or use Railway's console after deployment.
+- If the frontend cannot connect, confirm `REACT_APP_API_URL` points to the deployed Railway backend URL.
